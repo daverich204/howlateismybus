@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import ClockIcon from '@mui/icons-material/DepartureBoard';
 import MenuIcon from '@mui/icons-material/Menu';
 import styled from "@emotion/styled";
 
@@ -22,12 +23,20 @@ export default function Header() {
                         aria-label="menu"
                         sx={{ mr: 2 }}
                     >
-                        <MenuIcon />
+                        <ClockIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         How Late Is My Bus?
                     </Typography>
-                    {/*<Button color="inherit">Login</Button>*/}
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ ml: 2 }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </Box>
