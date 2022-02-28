@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import StopsAPI from "../api/stops";
+import StopSchedule from "./StopSchedule";
 
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -24,10 +25,14 @@ export const StopMap = (props) => {
     const [ nearbyStops, setNearbyStops ] = useState([]);
 
     useEffect(async () => {
-        const stops_nearby = await StopsAPI.getNearbyStops({lat: mapPositions[0], lon: mapPositions[1], distance: 1000 });
-        const { stops = [] } = stops_nearby;
+        if (!nearbyStops.length) {
+            const stops_nearby = await StopsAPI.getNearbyStops({lat: mapPositions[0], lon: mapPositions[1], distance: 1000 });
+            const { stops = [] } = stops_nearby;
 
-        setNearbyStops(stops);
+            setNearbyStops(stops);
+        } else {
+            console.log("already have stops => ", nearbyStops);
+        }
     }, [mapPositions]);
 
     return (
@@ -50,9 +55,10 @@ export const StopMap = (props) => {
                           position={[latitude, longitude]}
                           // icon={<StopIcon />}
                   >
-                    <Popup>
+                    <Popup sx={{ minWidth: 650 }}>
                         {key}: {name}
                         <br />
+                        <StopSchedule stopNumber={key} />
                     </Popup>
                   </Marker>
                 );

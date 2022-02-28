@@ -14,8 +14,20 @@ export const getNearbyStops = async ({ lat, lon, distance = 1000 }) => {
     }
 }
 
+export const getStopSchedule = async (stopNumber) => {
+    try {
+        const reqUrl = `https://api.winnipegtransit.com/v3/stops/${stopNumber}/schedule.json?api-key=${process.env.REACT_APP_TRANSIT_API_KEY}`
+        const response = await fetch(reqUrl);
+        return response.json();
+    } catch (e) {
+        console.log("Exception Caught => ", e);
+        throw e;
+    }
+}
+
 const all_functions = {
-    getNearbyStops
+    getNearbyStops,
+    getStopSchedule
 }
 
 export default all_functions;
